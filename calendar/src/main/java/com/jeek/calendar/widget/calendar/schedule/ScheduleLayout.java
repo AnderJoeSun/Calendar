@@ -280,23 +280,23 @@ public class ScheduleLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                mDownPosition[0] = event.getRawX();
-                mDownPosition[1] = event.getRawY();
-                resetCalendarPosition();
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                transferEvent(event);
-                mIsScrolling = true;
-                return true;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                transferEvent(event);
-                changeCalendarState();
-                resetScrollingState();
-                return true;
-        }
+//        switch (event.getActionMasked()) { // zhengnian.me: 不切换到周日历列表模式
+//            case MotionEvent.ACTION_DOWN:
+//                mDownPosition[0] = event.getRawX();
+//                mDownPosition[1] = event.getRawY();
+//                resetCalendarPosition();
+//                return true;
+//            case MotionEvent.ACTION_MOVE:
+//                transferEvent(event);
+//                mIsScrolling = true;
+//                return true;
+//            case MotionEvent.ACTION_UP:
+//            case MotionEvent.ACTION_CANCEL:
+//                transferEvent(event);
+//                changeCalendarState();
+//                resetScrollingState();
+//                return true;
+//        }
         return super.onTouchEvent(event);
     }
 

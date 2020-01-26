@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">即刻日程</string>
+    <string name="app_name">万年历</string>
     <string name="exit_app_hint">再点一次退出应用</string>
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
@@ -27,18 +27,18 @@
     <string name="calendar_year">%d年</string>
 
     <!--schedule-->
-    <string name="schedule_input_you_do_thing">输入您要做的事情</string>
-    <string name="schedule_input_content_is_no_null">事件内容不能为空</string>
-    <string name="schedule_event_detail_setting">事件详情设置</string>
-    <string name="schedule_title">事件标题</string>
+    <string name="schedule_input_you_do_thing">可在此输入您准备在这天做的事项</string>
+    <string name="schedule_input_content_is_no_null">事项内容不能为空</string>
+    <string name="schedule_event_detail_setting">事项详情设置</string>
+    <string name="schedule_title">事项标题</string>
     <string name="schedule_show_finish_task">显示已完成任务</string>
     <string name="schedule_hide_finish_task">隐藏已完成任务</string>
-    <string name="schedule_delete_this_schedule">是否删除该行程？</string>
+    <string name="schedule_delete_this_schedule">确定要删除该事项？</string>
 
     <!--menu-->
     <string name="menu_schedule">日程</string>
-    <string name="menu_event_set">事件集</string>
-    <string name="menu_add_event_set">添加事件清单</string>
+    <string name="menu_event_set">事项集</string>
+    <string name="menu_add_event_set">添加事项清单</string>
     <string name="menu_no_category">未分类</string>
 
     <!--event.set-->
@@ -46,7 +46,7 @@
     <string name="event_set_color">颜色</string>
     <string name="event_set_name_is_not_null">清单名称不能为空</string>
     <string name="event_set_select_color">选择颜色</string>
-    <string name="event_set_delete_this_event_set">确定要删除该事件集？</string>
+    <string name="event_set_delete_this_event_set">确定要删除该事项集？</string>
 
     <string name="hour">小时</string>
     <string name="remarks">备忘录</string>
@@ -57,6 +57,6 @@
     <string name="click_here_select_location">点击此处选择地点</string>
     <string name="click_input_location">点击输入地点</string>
     <string name="add_location">添加地点</string>
-    <string name="select_event_set">选择事件清单</string>
+    <string name="select_event_set">选择事项清单</string>
 
 </resources>

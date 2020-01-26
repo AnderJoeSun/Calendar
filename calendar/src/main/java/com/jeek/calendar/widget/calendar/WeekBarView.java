@@ -38,8 +38,10 @@ public class WeekBarView extends View {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.WeekBarView);
-        mWeekTextColor = array.getColor(R.styleable.WeekBarView_week_text_color, Color.parseColor("#4588E3"));
-        mWeekSize = array.getInteger(R.styleable.WeekBarView_week_text_size, 13);
+//        mWeekTextColor = array.getColor(R.styleable.WeekBarView_week_text_color, Color.parseColor("#4588E3"));
+        mWeekTextColor = Color.parseColor("#736EB0"); // zhengnian.me: 星期字体颜色
+//        mWeekSize = array.getInteger(R.styleable.WeekBarView_week_text_size, 13);
+        mWeekSize = 16; // zhengnian.me: 星期字体大小
         mWeekString = context.getResources().getStringArray(R.array.calendar_week);
         array.recycle();
     }

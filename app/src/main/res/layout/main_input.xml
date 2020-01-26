@@ -13,7 +13,14 @@
         android:layout_width="@dimen/action_bar_height"
         android:layout_height="match_parent"
         android:background="@color/colorTranslate"
+        android:visibility="gone"
         android:src="@drawable/btn_clock"/>
+    
+    <ImageButton
+        android:layout_width="@dimen/action_bar_height"
+        android:layout_height="match_parent"
+        android:background="@color/colorTranslate"
+        android:src="@mipmap/btn_clock_normal"/>
 
     <EditText
         android:id="@+id/etInputContent"
@@ -29,6 +36,7 @@
         android:lines="1"
         android:padding="@dimen/space_6dp"
         android:textColor="@color/color_schedule_title_text"
+        android:textSize="@dimen/text_size_14sp"
         android:textColorHint="@color/color_text_grey"/>
 
     <ImageButton

@@ -28,7 +28,7 @@ public class MonthAdapter extends PagerAdapter {
         mArray = array;
         mMonthCalendarView = monthCalendarView;
         mViews = new SparseArray<>();
-        mMonthCount = array.getInteger(R.styleable.MonthCalendarView_month_count, 48);
+        mMonthCount = array.getInteger(R.styleable.MonthCalendarView_month_count, 240);
     }
 
     @Override

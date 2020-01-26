@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         llTitleDate.setVisibility(View.VISIBLE);
         tvTitle.setVisibility(View.GONE);
         tvTitleMonth.setText(mMonthText[Calendar.getInstance().get(Calendar.MONTH)]);
-        tvTitleDay.setText(getString(R.string.calendar_today));
+        tvTitleDay.setText(String.format(getString(R.string.calendar_day), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) + "（" + getString(R.string.calendar_today) + "）");
         if (Build.VERSION.SDK_INT < 19) {
             TextView tvMenuTitle = searchViewById(R.id.tvMenuTitle);
             tvMenuTitle.setGravity(Gravity.CENTER_VERTICAL);
@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 month == calendar.get(Calendar.MONTH) &&
                 day == calendar.get(Calendar.DAY_OF_MONTH)) {
             tvTitleMonth.setText(mMonthText[month]);
-            tvTitleDay.setText(getString(R.string.calendar_today));
+            tvTitleDay.setText(String.format(getString(R.string.calendar_day), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) + "（" + getString(R.string.calendar_today) + "）");
         } else {
             if (year == calendar.get(Calendar.YEAR)) {
                 tvTitleMonth.setText(mMonthText[month]);
@@ -217,20 +217,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (dlMain.isDrawerOpen(Gravity.START)) {
-            dlMain.closeDrawer(Gravity.START);
-        } else {
-            System.arraycopy(mNotes, 1, mNotes, 0, mNotes.length - 1);
-            mNotes[mNotes.length - 1] = SystemClock.uptimeMillis();
-            if (SystemClock.uptimeMillis() - mNotes[0] < 1000) {
-                finish();
-            } else {
-                Toast.makeText(this, getString(R.string.exit_app_hint), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    @Override
+//    public void onBackPressed() { // zhengnian.me: 返回即退出界面，不用按二次back
+//        if (dlMain.isDrawerOpen(Gravity.START)) {
+//            dlMain.closeDrawer(Gravity.START);
+//        } else {
+//            System.arraycopy(mNotes, 1, mNotes, 0, mNotes.length - 1);
+//            mNotes[mNotes.length - 1] = SystemClock.uptimeMillis();
+//            if (SystemClock.uptimeMillis() - mNotes[0] < 1000) {
+//                finish();
+//            } else {
+//                Toast.makeText(this, getString(R.string.exit_app_hint), Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
     @Override
     protected void onDestroy() {

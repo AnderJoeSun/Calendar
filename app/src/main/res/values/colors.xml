@@ -15,7 +15,8 @@
     <color name="color_schedule_green">#84C5A3</color>
     <color name="color_schedule_blue">#679BE4</color>
     <color name="color_schedule_grey">#B9B9BD</color>
-    <color name="color_schedule_start">#3D81E2</color>
+    <!-- <color name="color_schedule_start">#3D81E2</color> -->
+    <color name="color_schedule_start">#736EB0</color> <!-- zhengnian.me: 事项开始字体颜色 -->
     <color name="color_schedule_finish">#EC4A5F</color>
     <color name="color_schedule_title_text">#272E3E</color>
     <color name="color_schedule_finish_title_text">#7F838F</color>

@@ -29,6 +29,8 @@ public class MonthView extends View {
 
     private static final int NUM_COLUMNS = 7;
     private static final int NUM_ROWS = 6;
+    private static final int DELTA_Y = 28; // zhengnian.me: 调整阳历日期与阴历日期的布局
+    private static final int DELTA_Y_2 = 35; // zhengnian.me: 调整阳历日期与阴历日期的布局
     private Paint mPaint;
     private Paint mLunarPaint;
     private int mNormalDayColor;
@@ -46,7 +48,7 @@ public class MonthView extends View {
     private int mDaySize;
     private int mLunarTextSize;
     private int mWeekRow; // 当前月份第几周
-    private int mCircleRadius = 6;
+    private int mCircleRadius = 10;
     private int[][] mDaysText;
     private int[] mHolidays;
     private String[][] mHolidayOrLunarText;
@@ -111,11 +113,16 @@ public class MonthView extends View {
             mCurrentDayColor = array.getColor(R.styleable.MonthCalendarView_month_today_text_color, Color.parseColor("#FF8594"));
             mHintCircleColor = array.getColor(R.styleable.MonthCalendarView_month_hint_circle_color, Color.parseColor("#FE8595"));
             mLastOrNextMonthTextColor = array.getColor(R.styleable.MonthCalendarView_month_last_or_next_month_text_color, Color.parseColor("#ACA9BC"));
-            mLunarTextColor = array.getColor(R.styleable.MonthCalendarView_month_lunar_text_color, Color.parseColor("#ACA9BC"));
-            mHolidayTextColor = array.getColor(R.styleable.MonthCalendarView_month_holiday_color, Color.parseColor("#A68BFF"));
-            mDaySize = array.getInteger(R.styleable.MonthCalendarView_month_day_text_size, 13);
-            mLunarTextSize = array.getInteger(R.styleable.MonthCalendarView_month_day_lunar_text_size, 8);
-            mIsShowHint = array.getBoolean(R.styleable.MonthCalendarView_month_show_task_hint, true);
+//            mLunarTextColor = array.getColor(R.styleable.MonthCalendarView_month_lunar_text_color, Color.parseColor("#ACA9BC"));
+            mLunarTextColor = Color.parseColor("#B2B1D3"); // zhengnian.me: 农历字体颜色
+//            mHolidayTextColor = array.getColor(R.styleable.MonthCalendarView_month_holiday_color, Color.parseColor("#A68BFF"));
+            mHolidayTextColor = Color.parseColor("#EEFF8594"); // zhengnian.me: 节气节日字体颜色
+//            mDaySize = array.getInteger(R.styleable.MonthCalendarView_month_day_text_size, 13);
+            mDaySize = 16;
+//            mLunarTextSize = array.getInteger(R.styleable.MonthCalendarView_month_day_lunar_text_size, 8);
+            mLunarTextSize = 11; // zhengnian.me: 农历字体大小
+//            mIsShowHint = array.getBoolean(R.styleable.MonthCalendarView_month_show_task_hint, true);
+            mIsShowHint = true; // zhengnian.me: show task hint 显示事项提示
             mIsShowLunar = array.getBoolean(R.styleable.MonthCalendarView_month_show_lunar, true);
             mIsShowHolidayHint = array.getBoolean(R.styleable.MonthCalendarView_month_show_holiday_hint, true);
         } else {
@@ -222,7 +229,7 @@ public class MonthView extends View {
             mDaysText[0][day] = monthDays - weekNumber + day + 2;
             String dayString = String.valueOf(mDaysText[0][day]);
             int startX = (int) (mColumnSize * day + (mColumnSize - mPaint.measureText(dayString)) / 2);
-            int startY = (int) (mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
+            int startY = (int) (mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2 - DELTA_Y);
             canvas.drawText(dayString, startX, startY, mPaint);
             mHolidayOrLunarText[0][day] = CalendarUtils.getHolidayFromSolar(lastYear, lastMonth, mDaysText[0][day]);
         }
@@ -239,7 +246,7 @@ public class MonthView extends View {
             int row = (day + weekNumber - 1) / 7;
             mDaysText[row][col] = day + 1;
             int startX = (int) (mColumnSize * col + (mColumnSize - mPaint.measureText(dayString)) / 2);
-            int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
+            int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2 - DELTA_Y);
             if (dayString.equals(String.valueOf(mSelDay))) {
                 int startRecX = mColumnSize * col;
                 int startRecY = mRowSize * row;
@@ -250,6 +257,7 @@ public class MonthView extends View {
                 } else {
                     mPaint.setColor(mSelectBGColor);
                 }
+                mSelectCircleSize = (int)(mSelectCircleSize * 1.31); // zhengnian.me: bigger circle 绘制被选中状态的粉红色圆圈提示背景（粉红色）
                 canvas.drawCircle((startRecX + endRecX) / 2, (startRecY + endRecY) / 2, mSelectCircleSize, mPaint);
                 mWeekRow = row + 1;
             }
@@ -290,7 +298,7 @@ public class MonthView extends View {
             }
             String dayString = String.valueOf(mDaysText[row][column]);
             int startX = (int) (mColumnSize * column + (mColumnSize - mPaint.measureText(dayString)) / 2);
-            int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
+            int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2 - DELTA_Y);
             canvas.drawText(dayString, startX, startY, mPaint);
         }
     }
@@ -426,7 +434,7 @@ public class MonthView extends View {
                     int row = (day + weekNumber - 1) / 7;
                     if (!hints.contains(day + 1)) continue;
                     float circleX = (float) (mColumnSize * col + mColumnSize * 0.5);
-                    float circleY = (float) (mRowSize * row + mRowSize * 0.75);
+                    float circleY = (float) (mRowSize * row + mRowSize * 0.75 - DELTA_Y_2);
                     canvas.drawCircle(circleX, circleY, mCircleRadius, mPaint);
                 }
             }

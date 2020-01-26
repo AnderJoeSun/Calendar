@@ -93,20 +93,20 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     changeScheduleState(schedule);
                 }
             });
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mBaseFragment instanceof ScheduleFragment) {
-                        mContext.startActivity(new Intent(mContext, ScheduleDetailActivity.class)
-                                .putExtra(ScheduleDetailActivity.SCHEDULE_OBJ, schedule)
-                                .putExtra(ScheduleDetailActivity.CALENDAR_POSITION, ((ScheduleFragment) mBaseFragment).getCurrentCalendarPosition()));
-                    } else {
-                        mContext.startActivity(new Intent(mContext, ScheduleDetailActivity.class)
-                                .putExtra(ScheduleDetailActivity.SCHEDULE_OBJ, schedule)
-                                .putExtra(ScheduleDetailActivity.CALENDAR_POSITION, -1));
-                    }
-                }
-            });
+//            viewHolder.itemView.setOnClickListener(new View.OnClickListener() { // zhengnian.me: 不做更详细的记录，待办事项不可编辑更新
+//                @Override
+//                public void onClick(View v) {
+//                    if (mBaseFragment instanceof ScheduleFragment) {
+//                        mContext.startActivity(new Intent(mContext, ScheduleDetailActivity.class)
+//                                .putExtra(ScheduleDetailActivity.SCHEDULE_OBJ, schedule)
+//                                .putExtra(ScheduleDetailActivity.CALENDAR_POSITION, ((ScheduleFragment) mBaseFragment).getCurrentCalendarPosition()));
+//                    } else {
+//                        mContext.startActivity(new Intent(mContext, ScheduleDetailActivity.class)
+//                                .putExtra(ScheduleDetailActivity.SCHEDULE_OBJ, schedule)
+//                                .putExtra(ScheduleDetailActivity.CALENDAR_POSITION, -1));
+//                    }
+//                }
+//            });
         } else if (holder instanceof ScheduleFinishViewHolder) {
             final Schedule schedule = mFinishSchedules.get(position - mSchedules.size() - 1);
             ScheduleFinishViewHolder viewHolder = (ScheduleFinishViewHolder) holder;
@@ -135,6 +135,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 viewHolder.tvChangeTaskList.setEnabled(false);
             }
             viewHolder.tvChangeTaskList.setText(mIsShowFinishTask ? mContext.getString(R.string.schedule_hide_finish_task) : mContext.getString(R.string.schedule_show_finish_task));
+            viewHolder.tvChangeTaskList.setVisibility(View.GONE); // zhengnian.me: 显示与隐藏已完成事项功能有bug，故不显示此功能按钮
             viewHolder.tvFinishHint.setVisibility(mIsShowFinishTask && mFinishSchedules.size() > 0 ? View.VISIBLE : View.GONE);
             viewHolder.tvChangeTaskList.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -272,13 +273,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }, schedule).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 break;
             case 1:
-                schedule.setState(2);
+//                schedule.setState(2); // zhengnian.me: 不更新状态，点击完成即弹出删除事项确定对话框
                 new UpdateScheduleTask(mContext, new OnTaskFinishedListener<Boolean>() {
                     @Override
                     public void onTaskFinished(Boolean data) {
-                        mSchedules.remove(schedule);
-                        mFinishSchedules.add(schedule);
-                        notifyDataSetChanged();
+                    	showDeleteScheduleDialog(schedule); // zhengnian.me: 点击完成即弹出删除事项确定对话框
+//                        mSchedules.remove(schedule);
+//                        mFinishSchedules.add(schedule);
+//                        notifyDataSetChanged();
                     }
                 }, schedule).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 break;
